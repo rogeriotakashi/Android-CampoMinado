@@ -13,13 +13,14 @@ import com.example.rogerio.campominado.R;
  * Created by ROGERIO on 24/10/2017.
  */
 
-public class Cell extends BaseCell implements View.OnClickListener
+public class Cell extends BaseCell implements View.OnClickListener,View.OnLongClickListener
 {
     public Cell(Context context, int x, int y)
     {
         super(context);
         setPosition(x,y);
         setOnClickListener(this);
+        setOnLongClickListener(this);
     }
 
     @Override
@@ -27,6 +28,22 @@ public class Cell extends BaseCell implements View.OnClickListener
     {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
+
+    @Override
+    public void onClick(View v)
+    {
+        GameEngine.getInstance().click(getXPos(),getYPos());
+    }
+
+    @Override
+    public boolean onLongClick(View v)
+    {
+        GameEngine.getInstance().flag(getXPos(),getYPos());
+
+        return true;
+    }
+
+
 
     @Override
     protected void onDraw(Canvas canvas)
@@ -124,9 +141,4 @@ public class Cell extends BaseCell implements View.OnClickListener
     }
 
 
-    @Override
-    public void onClick(View v)
-    {
-        GameEngine.getInstance().click(getXPos(),getYPos());
-    }
 }

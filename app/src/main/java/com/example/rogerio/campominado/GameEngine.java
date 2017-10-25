@@ -3,6 +3,7 @@ package com.example.rogerio.campominado;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rogerio.campominado.util.Generator;
 import com.example.rogerio.campominado.util.PrintGrid;
@@ -97,10 +98,53 @@ public class GameEngine {
             }
         }
 
+        checkEnd();
+
 
     }
 
-    private void onGameLost() {
+    private boolean checkEnd()
+    {
+        int bombNotFound = BOMB_NUMBER;
+        int notRevealed = WIDTH * HEIGHT;
 
+        for(int x = 0; x < WIDTH; x++)
+        {
+            for(int y=0; y< HEIGHT;y++)
+            {
+                if(getCellAt(x,y).isRevealed() || getCellAt(x,y).isFlagged())
+                    notRevealed--;
+
+                if(getCellAt(x,y).isFlagged() && getCellAt(x,y).isBomb())
+                    bombNotFound--;
+            }
+        }
+
+        if(bombNotFound == 0 && notRevealed == 0)
+            Toast.makeText(context, "Game Won!", Toast.LENGTH_LONG).show();
+
+
+        return false;
+    }
+
+    private void onGameLost()
+    {
+        Toast.makeText(context, "Game Lost!", Toast.LENGTH_LONG).show();
+        for(int x = 0; x < WIDTH; x++)
+        {
+            for(int y=0; y< HEIGHT;y++)
+            {
+                getCellAt(x,y).setRevealed();
+            }
+        }
+    }
+
+
+
+    public void flag(int x, int y)
+    {
+        boolean isFlagged = getCellAt(x,y).isFlagged();
+        getCellAt(x,y).setFlagged(!isFlagged);
+        getCellAt(x,y).invalidate();
     }
 }
