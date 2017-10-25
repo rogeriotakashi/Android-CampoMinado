@@ -16,6 +16,7 @@ import com.example.rogerio.campominado.views.grid.Cell;
 public class GameEngine {
     private static GameEngine instance;
     private Context context;
+    private boolean isStarted;
 
     public static final int BOMB_NUMBER = 10;
     public static final int WIDTH = 10;
@@ -34,6 +35,11 @@ public class GameEngine {
 
     private GameEngine(){ }
 
+    public void startGame()
+    {
+        isStarted = true;
+    }
+
     public void createGrid(Context context)
     {
         this.context = context;
@@ -41,6 +47,7 @@ public class GameEngine {
         int[][] GenaratedrGrid = Generator.generate(BOMB_NUMBER,WIDTH,HEIGHT);
         PrintGrid.print(GenaratedrGrid,WIDTH,HEIGHT);
         setGrid(context,GenaratedrGrid);
+        this.isStarted=false;
 
     }
 
@@ -77,29 +84,25 @@ public class GameEngine {
 
     public void click(int x, int y)
     {
-        if(x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT && !getCellAt(x,y).isClicked())
-        {
-            getCellAt(x,y).setClicked();
+        if(isStarted) {
+            if (x >= 0 && y >= 0 && x < WIDTH && y < HEIGHT && !getCellAt(x, y).isClicked()) {
+                getCellAt(x, y).setClicked();
 
-            if(getCellAt(x,y).getValue() == 0)
-            {
-                for(int xt = -1; xt <= 1;xt++)
-                {
-                    for(int yt = -1; yt <= 1;yt++)
-                    {
-                        if(xt != yt)
-                            click(x + xt, y + yt);
+                if (getCellAt(x, y).getValue() == 0) {
+                    for (int xt = -1; xt <= 1; xt++) {
+                        for (int yt = -1; yt <= 1; yt++) {
+                            if (xt != yt)
+                                click(x + xt, y + yt);
+                        }
                     }
                 }
+                if (getCellAt(x, y).isBomb()) {
+                    onGameLost();
+                }
             }
-            if (getCellAt(x,y).isBomb())
-            {
-                onGameLost();
-            }
+
+            checkEnd();
         }
-
-        checkEnd();
-
 
     }
 

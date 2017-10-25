@@ -21,4 +21,28 @@
 
       </com.example.rogerio.campominado.views.grid.Grid>
 
+    <Button
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btnStart" />
+
+    <TextView
+        android:text="Time Spent: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Grid"
+        android:id="@+id/textView7" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chronometer2"
+        android:layout_below="@+id/Grid"
+        android:layout_toRightOf="@+id/textView7"
+        android:layout_toEndOf="@+id/textView7" />
+
 </RelativeLayout>
