@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rogerio.campominado">
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.rogerio.campominado.MainActivity"
+            android:name=".MainActivity"
             android:label="Campo Minado"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,16 +22,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.rogerio.campominado.feedback.Feedback"
+            android:name=".feedback.Feedback"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.example.rogerio.campominado.feedback.AfterFeedback"
+            android:name=".feedback.AfterFeedback"
             android:label="@string/title_activity_after_feedback"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
-
+        <activity android:name=".Game"></activity>
     </application>
 
 </manifest>

@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                 if (position == 0) {
-
+                    Intent intent = new Intent(MainActivity.this, Game.class);
+                    startActivity(intent);
                 }
                 if (position == 1) {
                     /*Under Construction*/
