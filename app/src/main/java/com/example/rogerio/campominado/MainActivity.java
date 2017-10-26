@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.rogerio.campominado.adapters.MenuAdapter;
 import com.example.rogerio.campominado.feedback.Feedback;
+import com.example.rogerio.campominado.leaderboard.Leaderboard;
 import com.example.rogerio.campominado.menu.Menu_Item;
 
 import java.util.ArrayList;
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (position == 1) {
-                    /*Under Construction*/
+                    Intent intent = new Intent(MainActivity.this, Leaderboard.class);
+                    startActivity(intent);
 
                 }
                 if (position == 3) {

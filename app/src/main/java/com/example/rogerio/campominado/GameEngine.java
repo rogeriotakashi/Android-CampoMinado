@@ -1,10 +1,14 @@
 package com.example.rogerio.campominado;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rogerio.campominado.leaderboard.InsertPlayer;
 import com.example.rogerio.campominado.util.Generator;
 import com.example.rogerio.campominado.util.PrintGrid;
 import com.example.rogerio.campominado.views.grid.Cell;
@@ -37,6 +41,7 @@ public class GameEngine {
 
     public void startGame()
     {
+
         isStarted = true;
     }
 
@@ -123,8 +128,46 @@ public class GameEngine {
             }
         }
 
-        if(bombNotFound == 0 && notRevealed == 0)
-            Toast.makeText(context, "Game Won!", Toast.LENGTH_LONG).show();
+        if(bombNotFound == 0 && notRevealed == 0){
+            Toast.makeText(context, "Game Won!", Toast.LENGTH_SHORT).show();
+
+            /*
+            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+
+            alert.setTitle("You Won");
+            alert.setMessage("Nickname:");
+
+            // Set an EditText view to get user input
+            final EditText input = new EditText(context);
+            alert.setView(input);
+
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    String[] fields = new String[2];
+                    String[] values = new String[2];
+                    fields[0] = "nickname";
+                    fields[1] = "time";
+
+                    values[0] = "Nome_Teste";
+                    values[1] = "300";
+
+                    InsertPlayer ip = new InsertPlayer(fields,values);
+                    ip.execute();
+                }
+            });
+
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // Canceled.
+                }
+            });
+
+            alert.show();
+*/
+
+
+        }
+
 
 
         return false;
@@ -132,7 +175,7 @@ public class GameEngine {
 
     private void onGameLost()
     {
-        Toast.makeText(context, "Game Lost!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Game Lost!", Toast.LENGTH_SHORT).show();
         for(int x = 0; x < WIDTH; x++)
         {
             for(int y=0; y< HEIGHT;y++)
@@ -149,5 +192,7 @@ public class GameEngine {
         boolean isFlagged = getCellAt(x,y).isFlagged();
         getCellAt(x,y).setFlagged(!isFlagged);
         getCellAt(x,y).invalidate();
+
+        checkEnd();
     }
 }
