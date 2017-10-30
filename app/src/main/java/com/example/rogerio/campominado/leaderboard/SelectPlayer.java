@@ -2,6 +2,7 @@ package com.example.rogerio.campominado.leaderboard;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,7 +19,12 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -88,7 +94,6 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
     protected void onPostExecute(String result) {
 
         ArrayList<Player_item> players = new ArrayList<>();
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         try{
             JSONArray jsonArray = new JSONArray(result);
 
@@ -101,11 +106,20 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
                         TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(jsonObject.getString("time")))
                 );
 
+
                 Player_item player = new Player_item(jsonObject.getString("nickname"),time);
                 players.add(player);
                 // players.add(jsonObject.getString("nickname")+" "+jsonObject.getString("time"));
 
             }
+
+            Collections.sort(players, new Comparator<Player_item>() {
+                @Override
+                public int compare(Player_item p1, Player_item p2) {
+                    return p1.getTime().compareTo(p2.getTime());
+                }
+            });
+
 
             LeaderboardAdapter adapter = new LeaderboardAdapter(context,players);
             listView.setAdapter(adapter);
