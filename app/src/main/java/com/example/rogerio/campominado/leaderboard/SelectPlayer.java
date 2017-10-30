@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +27,7 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
     private Context context;
     private String[] fields;
     private String[] values;
-    private static final String HOST = "http://192.168.0.110/~ulisses/select_data.php";
+    private static final String HOST = "http://es.ft.unicamp.br/ulisses/si700/select_data.php";
 
     ListView listView;
 
@@ -43,7 +44,7 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
         try {
             String data =
                             URLEncoder.encode("database","UTF-8")+"="+
-                            URLEncoder.encode("campominado","UTF-8")+"&"+
+                            URLEncoder.encode("ra176976","UTF-8")+"&"+
 
                             URLEncoder.encode("table","UTF-8")+"="+
                             URLEncoder.encode("leaderboard","UTF-8");
@@ -84,8 +85,10 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
     protected void onPostExecute(String result) {
 
         ArrayList<String> players = new ArrayList<>();
+        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         try{
             JSONArray jsonArray = new JSONArray(result);
+
 
             for(int i = 0; i < jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);

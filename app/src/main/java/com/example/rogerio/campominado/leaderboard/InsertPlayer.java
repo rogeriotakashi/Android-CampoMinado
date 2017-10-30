@@ -20,7 +20,7 @@ public class InsertPlayer extends AsyncTask <Void,Void,String> {
 
     private String[] fields;
     private String[] values;
-    private static final String HOST = "http://192.168.0.110/~ulisses/insert_data.php";
+    private static final String HOST = "http://es.ft.unicamp.br/ulisses/si700/insert_data.php";
 
     public InsertPlayer(String[] fields,String[] values) {
         this.fields = fields;
@@ -34,7 +34,7 @@ public class InsertPlayer extends AsyncTask <Void,Void,String> {
         try {
             String data =
             URLEncoder.encode("database","UTF-8")+"="+
-            URLEncoder.encode("campominado","UTF-8")+"&"+
+            URLEncoder.encode("ra176976","UTF-8")+"&"+
 
             URLEncoder.encode("table","UTF-8")+"="+
             URLEncoder.encode("leaderboard","UTF-8");
