@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.rogerio.campominado.adapters.LeaderboardAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by r176976 on 25/10/17.
@@ -84,7 +87,7 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
     @Override
     protected void onPostExecute(String result) {
 
-        ArrayList<String> players = new ArrayList<>();
+        ArrayList<Player_item> players = new ArrayList<>();
         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
         try{
             JSONArray jsonArray = new JSONArray(result);
@@ -92,10 +95,19 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
 
             for(int i = 0; i < jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                players.add(jsonObject.getString("nickname")+" "+jsonObject.getString("time"));
+
+                String time = String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(jsonObject.getString("time"))),
+                        TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(jsonObject.getString("time")))
+                );
+
+                Player_item player = new Player_item(jsonObject.getString("nickname"),time);
+                players.add(player);
+                // players.add(jsonObject.getString("nickname")+" "+jsonObject.getString("time"));
+
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(context,android.R.layout.simple_list_item_1,players);
+            LeaderboardAdapter adapter = new LeaderboardAdapter(context,players);
             listView.setAdapter(adapter);
 
 
