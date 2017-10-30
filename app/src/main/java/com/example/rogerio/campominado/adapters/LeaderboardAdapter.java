@@ -50,11 +50,13 @@ public class LeaderboardAdapter extends BaseAdapter {
 
         View linha = LayoutInflater.from(context).inflate(R.layout.leaderboard_line,null);
 
+        TextView rankNumber = (TextView) linha.findViewById(R.id.rankNumber);
         ImageView playerImage = (ImageView) linha.findViewById(R.id.playerImage);
         TextView nickname = (TextView) linha.findViewById(R.id.nickname);
         ImageView clockImage = (ImageView) linha.findViewById(R.id.clockImage);
         TextView time = (TextView) linha.findViewById(R.id.time);
 
+        rankNumber.setText("#"+(position+1)+" ");
         nickname.setText(playerItem.getNickname());
         time.setText(playerItem.getTime());
 

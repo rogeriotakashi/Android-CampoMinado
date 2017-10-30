@@ -40,6 +40,8 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
 
     ListView listView;
 
+    static final int TOP = 10;
+
     public SelectPlayer(Context context, ListView listView) {
         this.context = context;
         this.listView =listView;
@@ -100,16 +102,18 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
 
             for(int i = 0; i < jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                long timeSpent = Long.parseLong(jsonObject.getString("time"));
 
                 String time = String.format("%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(Long.parseLong(jsonObject.getString("time"))),
-                        TimeUnit.MILLISECONDS.toSeconds(Long.parseLong(jsonObject.getString("time")))
+                        TimeUnit.MILLISECONDS.toMinutes(timeSpent),
+                        TimeUnit.MILLISECONDS.toSeconds(timeSpent)-
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeSpent))
                 );
 
 
                 Player_item player = new Player_item(jsonObject.getString("nickname"),time);
                 players.add(player);
-                // players.add(jsonObject.getString("nickname")+" "+jsonObject.getString("time"));
+
 
             }
 
@@ -121,7 +125,14 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
             });
 
 
-            LeaderboardAdapter adapter = new LeaderboardAdapter(context,players);
+            ArrayList<Player_item> topPlayers = players;
+
+            // Filter top players
+            if(players.size() > TOP)
+                topPlayers = new ArrayList<>(players.subList(0,TOP));
+
+
+            LeaderboardAdapter adapter = new LeaderboardAdapter(context,topPlayers);
             listView.setAdapter(adapter);
 
 

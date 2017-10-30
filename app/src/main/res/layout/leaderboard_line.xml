@@ -9,7 +9,14 @@
         android:layout_height="wrap_content">
 
 
-    <ImageView
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:id="@+id/rankNumber"
+         />
+
+        <ImageView
         android:layout_width="20dp"
         android:layout_height="19dp"
         app:srcCompat="@drawable/profile"
@@ -25,16 +32,16 @@
         android:layout_height="33dp"
         android:id="@+id/nickname"
         android:gravity="bottom"
-        android:layout_weight="3.31"
+        android:layout_weight="1.50"
         android:textSize="24dp"
         />
 
     <ImageView
-        android:layout_width="22dp"
+        android:layout_width="21dp"
         android:layout_height="24dp"
         app:srcCompat="@drawable/clock"
         android:id="@+id/clockImage"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|right"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="3dp"/>
 
@@ -43,8 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:id="@+id/time"
-        android:layout_weight="1"
-        android:gravity="bottom"
+        android:layout_weight="0.10"
+        android:gravity="bottom|right"
         android:textSize="24dp"
         />
     </LinearLayout>
