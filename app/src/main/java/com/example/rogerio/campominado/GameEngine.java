@@ -1,9 +1,12 @@
 package com.example.rogerio.campominado;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,8 @@ public class GameEngine {
     private static GameEngine instance;
     private Context context;
     private boolean isStarted;
+    Chronometer chronometer;
+
 
     public static final int BOMB_NUMBER = 10;
     public static final int WIDTH = 10;
@@ -131,7 +136,11 @@ public class GameEngine {
         if(bombNotFound == 0 && notRevealed == 0){
             Toast.makeText(context, "Game Won!", Toast.LENGTH_SHORT).show();
 
-            /*
+            View rootView = ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
+            chronometer = (Chronometer) rootView.findViewById(R.id.chronometer2);
+
+            chronometer.stop();
+            final long finishedTime = SystemClock.elapsedRealtime();
             AlertDialog.Builder alert = new AlertDialog.Builder(context);
 
             alert.setTitle("You Won");
@@ -148,8 +157,11 @@ public class GameEngine {
                     fields[0] = "nickname";
                     fields[1] = "time";
 
-                    values[0] = "Nome_Teste";
-                    values[1] = "300";
+                    values[0] = input.getText().toString();
+                    values[1] = finishedTime - chronometer.getBase() + "";
+                    Toast.makeText(context,values[0],Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,values[1],Toast.LENGTH_SHORT).show();
+
 
                     InsertPlayer ip = new InsertPlayer(fields,values);
                     ip.execute();
@@ -163,7 +175,6 @@ public class GameEngine {
             });
 
             alert.show();
-*/
 
 
         }

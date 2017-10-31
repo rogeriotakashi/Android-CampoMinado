@@ -17,7 +17,7 @@ import com.example.rogerio.campominado.leaderboard.InsertPlayer;
 public class Game extends AppCompatActivity {
 
     Chronometer chronometer;
-    Button start,button;
+    Button start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         chronometer = (Chronometer) findViewById(R.id.chronometer2);
         start = (Button) findViewById(R.id.btnStart);
-        button = (Button) findViewById(R.id.button);
+
 
         GameEngine.getInstance().createGrid(this);
 
@@ -41,49 +41,7 @@ public class Game extends AppCompatActivity {
         });
 
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-            chronometer.stop();
-            final long finishedTime = SystemClock.elapsedRealtime();
-            AlertDialog.Builder alert = new AlertDialog.Builder(Game.this);
-
-            alert.setTitle("You Won");
-            alert.setMessage("Nickname:");
-
-            // Set an EditText view to get user input
-            final EditText input = new EditText(Game.this);
-            alert.setView(input);
-
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    String[] fields = new String[2];
-                    String[] values = new String[2];
-                    fields[0] = "nickname";
-                    fields[1] = "time";
-
-                    values[0] = input.getText().toString();
-                    values[1] = finishedTime - chronometer.getBase() + "";
-                    Toast.makeText(Game.this,values[0],Toast.LENGTH_SHORT).show();
-                    Toast.makeText(Game.this,values[1],Toast.LENGTH_SHORT).show();
-
-
-                    InsertPlayer ip = new InsertPlayer(fields,values);
-                    ip.execute();
-                }
-            });
-
-            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // Canceled.
-                }
-            });
-
-            alert.show();
-            }
-        });
 
 
 

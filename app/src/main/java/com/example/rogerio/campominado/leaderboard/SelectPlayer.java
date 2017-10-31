@@ -127,6 +127,7 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
 
             ArrayList<Player_item> topPlayers = players;
 
+
             // Filter top players
             if(players.size() > TOP)
                 topPlayers = new ArrayList<>(players.subList(0,TOP));
