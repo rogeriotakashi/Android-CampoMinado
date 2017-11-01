@@ -31,7 +31,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Game" />
         <activity android:name="res.layout.leaderboard" />
-        <activity android:name=".leaderboard.Leaderboard"></activity>
+        <activity android:name=".leaderboard.Leaderboard" />
+        <activity
+            android:name=".settings.Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

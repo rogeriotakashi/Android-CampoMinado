@@ -14,6 +14,7 @@ import com.example.rogerio.campominado.adapters.MenuAdapter;
 import com.example.rogerio.campominado.feedback.Feedback;
 import com.example.rogerio.campominado.leaderboard.Leaderboard;
 import com.example.rogerio.campominado.menu.Menu_Item;
+import com.example.rogerio.campominado.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }
+
+                if (position == 2) {
+                    Intent intent = new Intent(MainActivity.this, Settings.class);
+                    startActivity(intent);
+
+                }
+
                 if (position == 3) {
                     Intent intent = new Intent(MainActivity.this, Feedback.class);
                     startActivity(intent);

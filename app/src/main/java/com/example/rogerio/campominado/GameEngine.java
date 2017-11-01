@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rogerio.campominado.leaderboard.InsertPlayer;
+import com.example.rogerio.campominado.settings.GameSettings;
 import com.example.rogerio.campominado.util.Generator;
 import com.example.rogerio.campominado.util.PrintGrid;
 import com.example.rogerio.campominado.views.grid.Cell;
@@ -22,16 +23,16 @@ import com.example.rogerio.campominado.views.grid.Cell;
 
 public class GameEngine {
     private static GameEngine instance;
-    private Context context;
-    private boolean isStarted;
-    Chronometer chronometer;
-
-
-    public static final int BOMB_NUMBER = 10;
+    public static int BOMB_NUMBER = GameSettings.getBombQuantityByDifficult();
     public static final int WIDTH = 10;
     public static final int HEIGHT = 10;
 
+
+    private Context context;
+    private boolean isStarted;
+    Chronometer chronometer;
     private Cell[][] MinesweeperGrid = new Cell[WIDTH][HEIGHT];
+
 
     public static GameEngine getInstance()
     {
@@ -41,6 +42,17 @@ public class GameEngine {
         }
         return instance;
     }
+
+    public static void resetInstance()
+    {
+        instance = null;
+        BOMB_NUMBER = GameSettings.getBombQuantityByDifficult();
+    }
+
+
+
+
+
 
     private GameEngine(){ }
 

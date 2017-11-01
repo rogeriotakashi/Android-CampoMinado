@@ -33,23 +33,14 @@ public class Game extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 chronometer.setText("Time Spent:");
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
                 GameEngine.getInstance().startGame();;
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
 }
