@@ -120,6 +120,7 @@ public class GameEngine {
                 }
                 if (getCellAt(x, y).isBomb()) {
                     onGameLost();
+                    isStarted = false;
                 }
             }
 

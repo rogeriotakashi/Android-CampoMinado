@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         //Adicionar Albuns
         listMenuItem.add(new Menu_Item("icon1","Play"));
         listMenuItem.add(new Menu_Item("icon2","LeaderBoard"));
-        listMenuItem.add(new Menu_Item("icon4","Settings"));
-        listMenuItem.add(new Menu_Item("icon5","Feedback"));
+        listMenuItem.add(new Menu_Item("icon3","Settings"));
+        listMenuItem.add(new Menu_Item("icon4","Feedback"));
 
 
         //Adapter
