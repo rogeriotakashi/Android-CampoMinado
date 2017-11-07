@@ -6,15 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.rogerio.campominado.R;
-import com.example.rogerio.campominado.leaderboard.InsertPlayer;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AfterFeedback extends AppCompatActivity {
 
@@ -56,7 +51,7 @@ public class AfterFeedback extends AppCompatActivity {
     }
 
     private void writeNewFeedback(String name, String email,String rate,String comment) {
-        feed feedback = new feed(name, email,rate,comment);
+        Feedback feedback = new Feedback(name, email,rate,comment);
 
 
         DatabaseReference feedbackRef = mDatabase.child("Feedbacks");

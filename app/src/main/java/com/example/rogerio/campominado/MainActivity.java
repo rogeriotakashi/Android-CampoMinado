@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rogerio.campominado.adapters.MenuAdapter;
-import com.example.rogerio.campominado.feedback.Feedback;
+import com.example.rogerio.campominado.feedback.FeedbackActivity;
 import com.example.rogerio.campominado.leaderboard.Leaderboard;
 import com.example.rogerio.campominado.menu.Menu_Item;
 import com.example.rogerio.campominado.settings.Settings;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (position == 3) {
-                    Intent intent = new Intent(MainActivity.this, Feedback.class);
+                    Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
                     startActivity(intent);
                 }
             }

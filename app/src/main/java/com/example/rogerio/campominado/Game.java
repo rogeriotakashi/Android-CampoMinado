@@ -18,6 +18,11 @@ public class Game extends AppCompatActivity {
 
     Chronometer chronometer;
     Button start;
+    Button pauseOrPlay;
+    Button restart;
+
+    boolean isPaused;
+    long timeWhenPaused = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,8 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         chronometer = (Chronometer) findViewById(R.id.chronometer2);
         start = (Button) findViewById(R.id.btnStart);
+        pauseOrPlay = (Button) findViewById(R.id.btnPauseOrPlay);
+        restart = (Button) findViewById(R.id.btnRestart);
 
 
         GameEngine.getInstance().createGrid(this);
@@ -37,9 +44,46 @@ public class Game extends AppCompatActivity {
                 chronometer.setText("Time Spent: ");
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
-                GameEngine.getInstance().startGame();;
+                GameEngine.getInstance().startGame();
+                isPaused = false;
+                start.setEnabled(false);
             }
         });
+
+        pauseOrPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(isPaused) {
+                    chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenPaused);
+                    chronometer.start();
+                    isPaused = false;
+                    pauseOrPlay.setText("Pause");
+                }else{
+                    chronometer.stop();
+                    timeWhenPaused = chronometer.getBase() - SystemClock.elapsedRealtime();
+                    isPaused = true;
+                    GameEngine.getInstance().stopGame();
+                    pauseOrPlay.setText("Continue");
+                }
+
+            }
+        });
+
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameEngine.getInstance().createGrid(Game.this);
+                chronometer.stop();
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                GameEngine.getInstance().stopGame();
+                start.setEnabled(true);
+                pauseOrPlay.setText("Pause");
+                isPaused = false;
+            }
+        });
+
+
     }
 
 

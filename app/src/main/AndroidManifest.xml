@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".feedback.Feedback"
+            android:name=".feedback.FeedbackActivity"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -30,7 +30,6 @@
             android:label="@string/title_activity_after_feedback"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Game" />
-        <activity android:name="res.layout.leaderboard" />
         <activity android:name=".leaderboard.Leaderboard" />
         <activity
             android:name=".settings.Settings"

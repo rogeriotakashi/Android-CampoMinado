@@ -58,8 +58,11 @@ public class GameEngine {
 
     public void startGame()
     {
-
         isStarted = true;
+    }
+    public void stopGame()
+    {
+        isStarted = false;
     }
 
     public void createGrid(Context context)
