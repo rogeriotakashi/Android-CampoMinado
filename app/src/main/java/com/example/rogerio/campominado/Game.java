@@ -18,7 +18,6 @@ public class Game extends AppCompatActivity {
 
     Chronometer chronometer;
     Button start;
-    Button pauseOrPlay;
     Button restart;
 
     boolean isPaused;
@@ -30,7 +29,6 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         chronometer = (Chronometer) findViewById(R.id.chronometer2);
         start = (Button) findViewById(R.id.btnStart);
-        pauseOrPlay = (Button) findViewById(R.id.btnPauseOrPlay);
         restart = (Button) findViewById(R.id.btnRestart);
 
 
@@ -45,30 +43,11 @@ public class Game extends AppCompatActivity {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
                 GameEngine.getInstance().startGame();
-                isPaused = false;
                 start.setEnabled(false);
             }
         });
 
-        pauseOrPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if(isPaused) {
-                    chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenPaused);
-                    chronometer.start();
-                    isPaused = false;
-                    pauseOrPlay.setText("Pause");
-                }else{
-                    chronometer.stop();
-                    timeWhenPaused = chronometer.getBase() - SystemClock.elapsedRealtime();
-                    isPaused = true;
-                    GameEngine.getInstance().stopGame();
-                    pauseOrPlay.setText("Continue");
-                }
-
-            }
-        });
 
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,8 +57,6 @@ public class Game extends AppCompatActivity {
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 GameEngine.getInstance().stopGame();
                 start.setEnabled(true);
-                pauseOrPlay.setText("Pause");
-                isPaused = false;
             }
         });
 

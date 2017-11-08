@@ -13,7 +13,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AfterFeedback extends AppCompatActivity {
 
-    TextView teste;
     FirebaseDatabase database;
     DatabaseReference mDatabase;
 
@@ -32,10 +31,7 @@ public class AfterFeedback extends AppCompatActivity {
             }
         });
 
-        teste = (TextView) findViewById(R.id.teste);
         Bundle bundle = getIntent().getExtras();
-
-        teste.setText(bundle.getString("nome")+"\n"+bundle.getString("email")+"\n"+bundle.getInt("nota")+"\n"+bundle.getString("comentario"));
 
         // Write a message to the database
         database = FirebaseDatabase.getInstance();
