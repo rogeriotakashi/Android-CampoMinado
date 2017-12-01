@@ -38,11 +38,18 @@ public class GridAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView img = new ImageView(mContext);
-        img.setImageResource(R.drawable.button);
+        img.setImageResource(mThumbIds[position]);
         img.setAdjustViewBounds(true);
 
         return img;
     }
+
+    public void updateList(int position, int drawable){
+        mThumbIds[position] = drawable;
+        notifyDataSetChanged();
+    }
+
+
 
 
 }

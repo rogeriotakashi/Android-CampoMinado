@@ -2,14 +2,19 @@ package com.example.rogerio.campominado;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 public class Game extends AppCompatActivity {
 
+    Engine e;
     GridView grid;
+    GridAdapter adapter;
     Chronometer chronometer;
     Button start;
     Button restart;
@@ -17,6 +22,7 @@ public class Game extends AppCompatActivity {
 
     boolean isPaused;
     long timeWhenPaused = 0;
+    Integer[] list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +32,20 @@ public class Game extends AppCompatActivity {
         start = (Button) findViewById(R.id.btnStart);
         restart = (Button) findViewById(R.id.btnRestart);
 
-
-
-        Engine e = new Engine(10,10,10);
+        // Initiate a 10x10 field
+        e = new Engine(10,10,10);
         e.run();
 
-        GridView gridview = (GridView) findViewById(R.id.grid);
+        grid = (GridView) findViewById(R.id.grid);
+        adapter = new GridAdapter(this,getListButtons());
+        grid.setAdapter(adapter);
 
 
-        gridview.setAdapter(new GridAdapter(this,getListButtons()));
-
-
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
+                adapter.updateList(position,e.open(position / 10, position % 10));
+            }
+        });
 
 
 /*
@@ -70,7 +79,7 @@ public class Game extends AppCompatActivity {
     }
 
     public Integer[] getListButtons(){
-        Integer[] list = new Integer[100];
+        list = new Integer[100];
 
         for(int i=0; i<list.length;i++)
             list[i] = R.drawable.button;
