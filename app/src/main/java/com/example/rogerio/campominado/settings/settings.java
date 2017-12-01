@@ -8,7 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioButton;
 
-import com.example.rogerio.campominado.GameEngine;
+
+
 import com.example.rogerio.campominado.R;
 
 
@@ -47,7 +48,6 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        GameEngine.getInstance().resetInstance();
         super.onPause();
     }
 

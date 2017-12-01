@@ -12,14 +12,7 @@
 
 
 
-    <com.example.rogerio.campominado.views.grid.Grid
-        android:id="@+id/Grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" >
 
-
-      </com.example.rogerio.campominado.views.grid.Grid>
 
     <Button
         android:text="Start"
@@ -32,18 +25,11 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:background="@drawable/button_bg"/>
 
-    <TextView
-        android:text="Time Spent: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Grid"
-        android:id="@+id/textView7" />
-
     <Chronometer
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chronometer2"
-        android:layout_below="@+id/Grid"
+        android:layout_below="@+id/grid"
         android:layout_toRightOf="@+id/textView7"
         android:layout_toEndOf="@+id/textView7" />
 
@@ -58,6 +44,24 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:background="@drawable/button_bg"/>
 
+    <TextView
+        android:text="Time Spent: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:layout_above="@+id/btnStart"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="20dp"
+        android:numColumns="10"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:id="@+id/grid"
+        android:layout_above="@+id/textView7" />
 
 
 </RelativeLayout>

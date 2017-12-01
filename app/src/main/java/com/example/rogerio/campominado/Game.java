@@ -1,24 +1,19 @@
 package com.example.rogerio.campominado;
 
-import android.content.DialogInterface;
-import android.os.SystemClock;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.rogerio.campominado.leaderboard.InsertPlayer;
+import android.widget.GridView;
 
 
 public class Game extends AppCompatActivity {
 
+    GridView grid;
     Chronometer chronometer;
     Button start;
     Button restart;
+
 
     boolean isPaused;
     long timeWhenPaused = 0;
@@ -32,8 +27,19 @@ public class Game extends AppCompatActivity {
         restart = (Button) findViewById(R.id.btnRestart);
 
 
-        GameEngine.getInstance().createGrid(this);
 
+        Engine e = new Engine(10,10,10);
+        e.run();
+
+        GridView gridview = (GridView) findViewById(R.id.grid);
+
+
+        gridview.setAdapter(new GridAdapter(this,getListButtons()));
+
+
+
+
+/*
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +48,7 @@ public class Game extends AppCompatActivity {
                 chronometer.setText("Time Spent: ");
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
-                GameEngine.getInstance().startGame();
+                engine.startGame();
                 start.setEnabled(false);
             }
         });
@@ -52,15 +58,24 @@ public class Game extends AppCompatActivity {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameEngine.getInstance().createGrid(Game.this);
+                engine.createGrid(Game.this);
                 chronometer.stop();
                 chronometer.setBase(SystemClock.elapsedRealtime());
-                GameEngine.getInstance().stopGame();
+                engine.stopGame();
                 start.setEnabled(true);
             }
         });
 
+*/
+    }
 
+    public Integer[] getListButtons(){
+        Integer[] list = new Integer[100];
+
+        for(int i=0; i<list.length;i++)
+            list[i] = R.drawable.button;
+
+        return list;
     }
 
 
