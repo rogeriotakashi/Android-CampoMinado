@@ -29,7 +29,7 @@
             android:name=".feedback.AfterFeedback"
             android:label="@string/title_activity_after_feedback"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Game" />
+        <activity android:name=".game.GameActivity" />
         <activity android:name=".leaderboard.Leaderboard" />
         <activity
             android:name=".settings.Settings"

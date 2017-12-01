@@ -1,4 +1,4 @@
-package com.example.rogerio.campominado;
+package com.example.rogerio.campominado.adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -44,7 +44,7 @@ public class GridAdapter extends BaseAdapter {
         return img;
     }
 
-    public void updateList(int position, int drawable){
+    public void updatePosition(int position, int drawable){
         mThumbIds[position] = drawable;
         notifyDataSetChanged();
     }

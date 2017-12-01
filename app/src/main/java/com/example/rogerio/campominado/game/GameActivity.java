@@ -1,4 +1,4 @@
-package com.example.rogerio.campominado;
+package com.example.rogerio.campominado.game;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,10 +7,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.GridView;
-import android.widget.Toast;
+
+import com.example.rogerio.campominado.R;
+import com.example.rogerio.campominado.adapters.GridAdapter;
+import com.example.rogerio.campominado.game.Engine;
 
 
-public class Game extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
     Engine e;
     GridView grid;
@@ -32,18 +35,18 @@ public class Game extends AppCompatActivity {
         start = (Button) findViewById(R.id.btnStart);
         restart = (Button) findViewById(R.id.btnRestart);
 
-        // Initiate a 10x10 field
-        e = new Engine(10,10,10);
-        e.run();
-
         grid = (GridView) findViewById(R.id.grid);
-        adapter = new GridAdapter(this,getListButtons());
+        adapter = new GridAdapter(this,getDefaultGrid());
         grid.setAdapter(adapter);
+
+        // Initiate a 10x10 field
+        e = new Engine(10,10,10,adapter);
+        e.run();
 
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
-                adapter.updateList(position,e.open(position / 10, position % 10));
+                e.open(position / 10, position % 10);
             }
         });
 
@@ -67,7 +70,7 @@ public class Game extends AppCompatActivity {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                engine.createGrid(Game.this);
+                engine.createGrid(GameActivity.this);
                 chronometer.stop();
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 engine.stopGame();
@@ -78,7 +81,7 @@ public class Game extends AppCompatActivity {
 */
     }
 
-    public Integer[] getListButtons(){
+    public Integer[] getDefaultGrid(){
         list = new Integer[100];
 
         for(int i=0; i<list.length;i++)

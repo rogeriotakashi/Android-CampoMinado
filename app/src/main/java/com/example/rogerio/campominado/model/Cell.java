@@ -1,4 +1,4 @@
-package com.example.rogerio.campominado;
+package com.example.rogerio.campominado.model;
 
 /**
  * Created by ROGERIO on 01/12/2017.

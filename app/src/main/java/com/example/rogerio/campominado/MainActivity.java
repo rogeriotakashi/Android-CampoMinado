@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.rogerio.campominado.adapters.MenuAdapter;
 import com.example.rogerio.campominado.feedback.FeedbackActivity;
+import com.example.rogerio.campominado.game.GameActivity;
 import com.example.rogerio.campominado.leaderboard.Leaderboard;
 import com.example.rogerio.campominado.menu.Menu_Item;
 import com.example.rogerio.campominado.settings.Settings;
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
                 if (position == 0) {
-                    Intent intent = new Intent(MainActivity.this, Game.class);
+                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     startActivity(intent);
                 }
                 if (position == 1) {
