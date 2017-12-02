@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.rogerio.campominado.R;
 import com.example.rogerio.campominado.adapters.GridAdapter;
@@ -22,10 +23,6 @@ public class GameActivity extends AppCompatActivity {
     Chronometer chronometer;
     Button start;
     Button restart;
-
-
-    boolean isPaused;
-    long timeWhenPaused = 0;
     Integer[] list;
 
     @Override
@@ -35,22 +32,21 @@ public class GameActivity extends AppCompatActivity {
         chronometer = (Chronometer) findViewById(R.id.chronometer2);
         start = (Button) findViewById(R.id.btnStart);
         restart = (Button) findViewById(R.id.btnRestart);
-
         grid = (GridView) findViewById(R.id.grid);
-
-
         initiate();
-
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
                 e.open(position / 10, position % 10);
-                e.checkEnd();
+                int status = e.checkEnd(position / 10, position % 10);
+
+                // Lose
+                if(status == -1) {
+                    Toast.makeText(GameActivity.this, "You Lose", Toast.LENGTH_SHORT).show();
+                    chronometer.stop();
+                }
             }
         });
-
-
-
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +60,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-
-
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,9 +70,9 @@ public class GameActivity extends AppCompatActivity {
                 initiate();
             }
         });
-
-
     }
+
+
 
     public Integer[] getDefaultGrid(){
         list = new Integer[100];

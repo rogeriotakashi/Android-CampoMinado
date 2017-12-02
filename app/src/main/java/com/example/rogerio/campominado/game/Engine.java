@@ -1,6 +1,8 @@
 package com.example.rogerio.campominado.game;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.rogerio.campominado.R;
 import com.example.rogerio.campominado.adapters.GridAdapter;
@@ -135,6 +137,8 @@ public class Engine  {
         if(campo[row][col].isMine())
             adapter.updatePosition(row*10 + col, R.drawable.bomb_exploded);
 
+
+
     }
 
     public void openRecursive(int row,int col) {
@@ -187,8 +191,23 @@ public class Engine  {
         adapter.updatePosition(row*10 + col, R.drawable.number_0);
     }
 
-    public void checkEnd(){
+    /**
+     *
+     * @param row
+     * @param col
+     * @return Return -1 if game is over, 0 if game is not ended and 1 1f player wins the game
+     */
+    public int checkEnd(int row, int col){
 
+        if(campo[row][col].isMine()){
+            stopGame();
+            return -1;
+        }
+
+
+
+
+        return 0;
     }
 
 
