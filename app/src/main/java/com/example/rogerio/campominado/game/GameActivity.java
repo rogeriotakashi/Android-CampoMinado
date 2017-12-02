@@ -1,5 +1,6 @@
 package com.example.rogerio.campominado.game;
 
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,22 +37,20 @@ public class GameActivity extends AppCompatActivity {
         restart = (Button) findViewById(R.id.btnRestart);
 
         grid = (GridView) findViewById(R.id.grid);
-        adapter = new GridAdapter(this,getDefaultGrid());
-        grid.setAdapter(adapter);
 
-        // Initiate a 10x10 field
-        e = new Engine(10,10,10,adapter);
-        e.run();
+
+        initiate();
 
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
                 e.open(position / 10, position % 10);
+                e.checkEnd();
             }
         });
 
 
-/*
+
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
                 chronometer.setText("Time Spent: ");
                 chronometer.setBase(SystemClock.elapsedRealtime());
                 chronometer.start();
-                engine.startGame();
+                e.startGame();
                 start.setEnabled(false);
             }
         });
@@ -70,15 +69,15 @@ public class GameActivity extends AppCompatActivity {
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                engine.createGrid(GameActivity.this);
                 chronometer.stop();
                 chronometer.setBase(SystemClock.elapsedRealtime());
-                engine.stopGame();
+                e.stopGame();
                 start.setEnabled(true);
+                initiate();
             }
         });
 
-*/
+
     }
 
     public Integer[] getDefaultGrid(){
@@ -88,6 +87,13 @@ public class GameActivity extends AppCompatActivity {
             list[i] = R.drawable.button;
 
         return list;
+    }
+
+    public void initiate(){
+        adapter = new GridAdapter(this,getDefaultGrid());
+        grid.setAdapter(adapter);
+        e = new Engine(10,10,10,adapter);
+        e.run();
     }
 
 

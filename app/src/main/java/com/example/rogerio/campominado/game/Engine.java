@@ -18,7 +18,7 @@ public class Engine  {
     private int totalMines;
     private int maxRow;
     private int maxCol;
-
+    private boolean isStarted;
 
     public Engine(int maxRow , int maxCol, int totalMines,GridAdapter adapter) {
         campo = new Cell[maxRow][maxCol];
@@ -31,6 +31,7 @@ public class Engine  {
         this.maxRow = maxRow;
         this.maxCol = maxCol;
         this.adapter = adapter;
+        this.isStarted = false;
     }
 
     public void run (){
@@ -39,6 +40,14 @@ public class Engine  {
 
 
         printCampo();
+    }
+
+    public void startGame(){
+        this.isStarted = true;
+    }
+
+    public void stopGame(){
+        this.isStarted = false;
     }
 
     public void setRamdomMines(){
@@ -83,8 +92,10 @@ public class Engine  {
 
     }
 
-
     public void open(int row, int col){
+        if(!isStarted)
+            return;
+
         int value = campo[row][col].getNeighbourMineCount();
 
 
@@ -126,9 +137,6 @@ public class Engine  {
 
     }
 
-
-
-
     public void openRecursive(int row,int col) {
         Log.d("Recursive :",row+"-"+col);
 
@@ -160,7 +168,6 @@ public class Engine  {
 
     }
 
-
     public void openNextRecursive(int row, int col){
         if (campo[row][col].isOpened()) return;
 
@@ -178,6 +185,10 @@ public class Engine  {
 
     public void openNone(int row, int col){
         adapter.updatePosition(row*10 + col, R.drawable.number_0);
+    }
+
+    public void checkEnd(){
+
     }
 
 
