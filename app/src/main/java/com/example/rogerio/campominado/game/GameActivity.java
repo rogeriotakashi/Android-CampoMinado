@@ -12,12 +12,11 @@ import android.widget.Toast;
 
 import com.example.rogerio.campominado.R;
 import com.example.rogerio.campominado.adapters.GridAdapter;
-import com.example.rogerio.campominado.game.Engine;
 
 
 public class GameActivity extends AppCompatActivity {
 
-    Engine e;
+    GameEngine e;
     GridView grid;
     GridAdapter adapter;
     Chronometer chronometer;
@@ -40,13 +39,30 @@ public class GameActivity extends AppCompatActivity {
                 e.open(position / 10, position % 10);
                 int status = e.checkEnd(position / 10, position % 10);
 
-                // Lose
                 if(status == -1) {
                     Toast.makeText(GameActivity.this, "You Lose", Toast.LENGTH_SHORT).show();
                     chronometer.stop();
                 }
             }
         });
+
+        grid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                e.flag(position /10, position % 10);
+                int status = e.checkEnd(position / 10, position % 10);
+
+                if(status == 1) {
+                    Toast.makeText(GameActivity.this, "You Win!", Toast.LENGTH_SHORT).show();
+                    chronometer.stop();
+                }
+
+                return true;
+            }
+        });
+
+
+
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +102,7 @@ public class GameActivity extends AppCompatActivity {
     public void initiate(){
         adapter = new GridAdapter(this,getDefaultGrid());
         grid.setAdapter(adapter);
-        e = new Engine(10,10,10,adapter);
+        e = new GameEngine(10,10,10,adapter);
         e.run();
     }
 

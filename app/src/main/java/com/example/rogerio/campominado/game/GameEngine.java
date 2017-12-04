@@ -1,9 +1,6 @@
 package com.example.rogerio.campominado.game;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.example.rogerio.campominado.R;
 import com.example.rogerio.campominado.adapters.GridAdapter;
 import com.example.rogerio.campominado.model.Cell;
@@ -14,7 +11,7 @@ import java.util.Random;
  * Created by ROGERIO on 01/12/2017.
  */
 
-public class Engine  {
+public class GameEngine {
     private Cell[][] campo;
     private GridAdapter adapter;
     private int totalMines;
@@ -22,7 +19,7 @@ public class Engine  {
     private int maxCol;
     private boolean isStarted;
 
-    public Engine(int maxRow , int maxCol, int totalMines,GridAdapter adapter) {
+    public GameEngine(int maxRow , int maxCol, int totalMines, GridAdapter adapter) {
         campo = new Cell[maxRow][maxCol];
 
         for(int i = 0; i < maxRow; i++)
@@ -191,6 +188,15 @@ public class Engine  {
         adapter.updatePosition(row*10 + col, R.drawable.number_0);
     }
 
+    public void flag(int row,int col){
+        adapter.updatePosition(row * 10 + col,R.drawable.flag);
+        campo[row][col].setFlag(true);
+
+        if(campo[row][col].isMine())
+            totalMines--;
+    }
+
+
     /**
      *
      * @param row
@@ -199,9 +205,14 @@ public class Engine  {
      */
     public int checkEnd(int row, int col){
 
-        if(campo[row][col].isMine()){
+        if(campo[row][col].isMine()  && !campo[row][col].isFlag()){
             stopGame();
             return -1;
+        }
+
+        if(totalMines == 0){
+            stopGame();
+            return 1;
         }
 
 
