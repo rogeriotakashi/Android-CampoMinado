@@ -42,11 +42,8 @@ public class GameActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
                 e.open(position / 10, position % 10);
                 int status = e.checkEnd(position / 10, position % 10);
+                checkStatus(status);
 
-                if(status == -1) {
-                    Toast.makeText(GameActivity.this, "You Lose", Toast.LENGTH_SHORT).show();
-                    chronometer.stop();
-                }
             }
         });
 
@@ -55,12 +52,7 @@ public class GameActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 e.flag(position /10, position % 10);
                 int status = e.checkEnd(position / 10, position % 10);
-
-                if(status == 1) {
-                    Toast.makeText(GameActivity.this, "You Win!", Toast.LENGTH_SHORT).show();
-                    chronometer.stop();
-                    showAlertDialogOnWin();
-                }
+                checkStatus(status);
 
                 return true;
             }
@@ -91,6 +83,19 @@ public class GameActivity extends AppCompatActivity {
                 initiate();
             }
         });
+    }
+
+    public void checkStatus(int status){
+        if(status == -1) {
+            Toast.makeText(GameActivity.this, "You Lose", Toast.LENGTH_SHORT).show();
+            chronometer.stop();
+        }
+
+        if(status == 1) {
+            Toast.makeText(GameActivity.this, "You Win!", Toast.LENGTH_SHORT).show();
+            chronometer.stop();
+            showAlertDialogOnWin();
+        }
     }
 
 

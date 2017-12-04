@@ -93,6 +93,7 @@ public class GameEngine {
             return;
 
         int value = campo[row][col].getNeighbourMineCount();
+        campo[row][col].setOpened(true);
 
 
         if(!campo[row][col].isMine()) {
@@ -186,11 +187,21 @@ public class GameEngine {
     }
 
     public void flag(int row,int col){
-        adapter.updatePosition(row * 10 + col,R.drawable.flag);
-        campo[row][col].setFlag(true);
+        campo[row][col].setFlag(!campo[row][col].isFlag());
+
+        if(campo[row][col].isFlag())
+            adapter.updatePosition(row * 10 + col,R.drawable.flag);
+        else
+            adapter.updatePosition(row * 10 + col,R.drawable.button);
+
 
         if(campo[row][col].isMine())
-            totalMines--;
+            if(campo[row][col].isFlag())
+                totalMines--;
+            else
+                totalMines++;
+
+
     }
 
     /**
@@ -201,7 +212,7 @@ public class GameEngine {
      */
     public int checkEnd(int row, int col){
 
-        if(campo[row][col].isMine()  && !campo[row][col].isFlag()){
+        if(campo[row][col].isMine()  && !campo[row][col].isFlag() && campo[row][col].isOpened()){
             stopGame();
             return -1;
         }
