@@ -33,12 +33,9 @@ public class GameEngine {
         this.isStarted = false;
     }
 
-    public void run (){
+    public void setGrid (){
         setRamdomMines();
         scanNeighbour();
-
-
-        printCampo();
     }
 
     public void startGame(){
@@ -196,7 +193,6 @@ public class GameEngine {
             totalMines--;
     }
 
-
     /**
      *
      * @param row
@@ -215,21 +211,7 @@ public class GameEngine {
             return 1;
         }
 
-
-
-
         return 0;
-    }
-
-
-
-
-    public void printCampo(){
-        for(int i = 0; i < maxRow; i++)
-            for(int j =0 ; j < maxCol; j++)
-                Log.i("Campo",campo[i][j].toString());
-
-
     }
 
 

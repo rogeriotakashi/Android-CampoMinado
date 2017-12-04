@@ -1,17 +1,21 @@
 package com.example.rogerio.campominado.game;
 
+import android.content.DialogInterface;
 import android.os.SystemClock;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.rogerio.campominado.R;
 import com.example.rogerio.campominado.adapters.GridAdapter;
+import com.example.rogerio.campominado.leaderboard.InsertPlayer;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -55,6 +59,7 @@ public class GameActivity extends AppCompatActivity {
                 if(status == 1) {
                     Toast.makeText(GameActivity.this, "You Win!", Toast.LENGTH_SHORT).show();
                     chronometer.stop();
+                    showAlertDialogOnWin();
                 }
 
                 return true;
@@ -103,7 +108,34 @@ public class GameActivity extends AppCompatActivity {
         adapter = new GridAdapter(this,getDefaultGrid());
         grid.setAdapter(adapter);
         e = new GameEngine(10,10,10,adapter);
-        e.run();
+        e.setGrid();
+    }
+
+    public void showAlertDialogOnWin(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final long finishedTime = SystemClock.elapsedRealtime();
+
+        alert.setTitle("You Won");
+        alert.setMessage("Nickname:");
+        final EditText input = new EditText(this);
+        alert.setView(input);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String[] fields = {"nickname","time"};
+                String[] values = new String[2];
+                values[0] = input.getText().toString();
+                values[1] = finishedTime - chronometer.getBase() + "";
+
+                insertPlayer(fields,values);
+
+            }
+        });
+        alert.show();
+    }
+
+    public void insertPlayer(String[] fields, String[] values){
+        InsertPlayer ip = new InsertPlayer(fields,values);
+        ip.execute();
     }
 
 
