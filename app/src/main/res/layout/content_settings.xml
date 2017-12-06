@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.rogerio.campominado.settings.Settings"
+    tools:context="com.example.rogerio.campominado.settings.SettingsActivity"
     tools:showIn="@layout/activity_settings">
 
     <TextView
@@ -27,6 +27,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/textView8">
+
+        <RadioButton
+            android:text="Super Easy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_easy"
+            android:onClick="onRadioButtonClicked"/>
 
         <RadioButton android:id="@+id/radio_normal"
             android:layout_width="wrap_content"

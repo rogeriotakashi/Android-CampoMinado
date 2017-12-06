@@ -10,10 +10,6 @@ public class Feedback {
     public String rate;
     public String comment;
 
-    public Feedback() {
-
-    }
-
     public Feedback(String name, String email, String rate, String comment) {
         this.name = name;
         this.email = email;

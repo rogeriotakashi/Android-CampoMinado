@@ -187,6 +187,9 @@ public class GameEngine {
     }
 
     public void flag(int row,int col){
+        if(!isStarted)
+            return;
+
         campo[row][col].setFlag(!campo[row][col].isFlag());
 
         if(campo[row][col].isFlag())

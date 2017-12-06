@@ -13,7 +13,7 @@ import com.example.rogerio.campominado.feedback.FeedbackActivity;
 import com.example.rogerio.campominado.game.GameActivity;
 import com.example.rogerio.campominado.leaderboard.Leaderboard;
 import com.example.rogerio.campominado.menu.Menu_Item;
-import com.example.rogerio.campominado.settings.Settings;
+import com.example.rogerio.campominado.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (position == 2) {
-                    Intent intent = new Intent(MainActivity.this, Settings.class);
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
 
                 }

@@ -11,9 +11,6 @@
     tools:context="com.example.rogerio.campominado.game.GameActivity">
 
 
-
-
-
     <Button
         android:text="Start"
         android:layout_width="wrap_content"
