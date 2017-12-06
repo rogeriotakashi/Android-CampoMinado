@@ -34,11 +34,6 @@ public class GameEngine {
         this.isStarted = false;
     }
 
-    public void setGrid() {
-        setRamdomMines();
-        scanNeighbour();
-    }
-
     public void startGame() {
         this.isStarted = true;
     }
@@ -47,6 +42,17 @@ public class GameEngine {
         this.isStarted = false;
     }
 
+    /**
+     * Call setRandomMines function and scanNeighbour function
+     */
+    public void setGrid() {
+        setRamdomMines();
+        scanNeighbour();
+    }
+
+    /**
+     * Set Random Mines in the field based on totalMines passed in the constructor
+     */
     public void setRamdomMines() {
         int actualMines = 0;
         Random random = new Random();
@@ -63,6 +69,9 @@ public class GameEngine {
         }
     }
 
+    /**
+     * Scan each cell from field and increment it if it has mine around it
+     */
     public void scanNeighbour() {
 
         for (int i = 0; i < maxRow; i++) {
@@ -88,6 +97,11 @@ public class GameEngine {
 
     }
 
+    /**
+     * Open a cell
+     * @param row
+     * @param col
+     */
     public void open(int row, int col) {
         if (!isStarted)
             return;
@@ -135,8 +149,12 @@ public class GameEngine {
 
     }
 
+    /**
+     * Operation to open blank cells recursively
+     * @param row
+     * @param col
+     */
     public void openRecursive(int row, int col) {
-        Log.d("Recursive :", row + "-" + col);
 
         if (row > 0 && col > 0)
             openNextRecursive(row - 1, col - 1);
@@ -156,7 +174,6 @@ public class GameEngine {
         if (col > 0)
             openNextRecursive(row, col - 1);
 
-
         if (row < (maxRow - 1) && col > 0)
             openNextRecursive(row + 1, col - 1);
 
@@ -165,6 +182,11 @@ public class GameEngine {
 
     }
 
+    /**
+     * Recursion terminations
+     * @param row
+     * @param col
+     */
     public void openNextRecursive(int row, int col) {
         if (campo[row][col].isOpened()) return;
 
@@ -178,10 +200,20 @@ public class GameEngine {
         }
     }
 
+    /**
+     * Put a blank cell representing number 0
+     * @param row
+     * @param col
+     */
     public void openNone(int row, int col) {
         adapter.updatePosition(row * 10 + col, R.drawable.number_0);
     }
 
+    /**
+     * Put a flag
+     * @param row
+     * @param col
+     */
     public void flag(int row, int col) {
         if (!isStarted)
             return;
@@ -206,7 +238,7 @@ public class GameEngine {
     /**
      * @param row
      * @param col
-     * @return Return -1 if game is over, 0 if game is not ended and 1 1f player wins the game
+     * @return Return -1 if the game is over, 0 if the game is not ended and 1 1f player wins the game
      */
     public int checkEnd(int row, int col) {
 

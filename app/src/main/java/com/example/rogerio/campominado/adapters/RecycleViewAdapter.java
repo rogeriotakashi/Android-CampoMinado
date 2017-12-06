@@ -27,6 +27,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         this.records = records;
     }
 
+
+
     @Override
     public PersonalRecordViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview, viewGroup, false);
@@ -57,13 +59,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
-
-
-
-
-
-
 
     public static class PersonalRecordViewHolder extends RecyclerView.ViewHolder {
         CardView cv;

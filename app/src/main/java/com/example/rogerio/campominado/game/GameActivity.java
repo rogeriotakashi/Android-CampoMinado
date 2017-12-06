@@ -44,10 +44,14 @@ public class GameActivity extends AppCompatActivity {
         restart = (Button) findViewById(R.id.btnRestart);
         grid = (GridView) findViewById(R.id.grid);
 
+        // Core Operations to start the game
         initiate();
 
+
+
+        // Grid Events
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 e.open(position / 10, position % 10);
                 int status = e.checkEnd(position / 10, position % 10);
                 checkStatus(status);
@@ -58,7 +62,7 @@ public class GameActivity extends AppCompatActivity {
         grid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                e.flag(position /10, position % 10);
+                e.flag(position / 10, position % 10);
                 int status = e.checkEnd(position / 10, position % 10);
                 checkStatus(status);
 
@@ -66,6 +70,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        // Button Events
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,40 +96,51 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    public void checkStatus(int status){
-        if(status == -1) {
+    /**
+     * Check the game status and execute actions based on it
+     *
+     * @param status Actual game status
+     */
+    public void checkStatus(int status) {
+        if (status == -1) {
             Toast.makeText(GameActivity.this, "You Lose", Toast.LENGTH_SHORT).show();
             chronometer.stop();
         }
 
-        if(status == 1) {
+        if (status == 1) {
             chronometer.stop();
             insertPersonalRecord();
             showAlertDialogOnWin();
         }
     }
 
-
-
-    public Integer[] getDefaultGrid(){
+    /**
+     * Fill a Integer[] with closed buttons
+     * @return returns a Integer[] filled with closed buttons
+     */
+    public Integer[] getDefaultGrid() {
         list = new Integer[100];
 
-        for(int i=0; i<list.length;i++)
+        for (int i = 0; i < list.length; i++)
             list[i] = R.drawable.button;
 
         return list;
     }
 
-    public void initiate(){
-        adapter = new GridAdapter(this,getDefaultGrid());
+    /**
+     * Core operations to create a new game
+     */
+    public void initiate() {
+        adapter = new GridAdapter(this, getDefaultGrid());
         grid.setAdapter(adapter);
-        e = new GameEngine(10,10, GameSettings.getBombQuantityByDifficult(),adapter);
+        e = new GameEngine(10, 10, GameSettings.getBombQuantityByDifficult(), adapter);
         e.setGrid();
     }
 
-
-
-    public void showAlertDialogOnWin(){
+    /**
+     * Displayed when player wins
+     */
+    public void showAlertDialogOnWin() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         final long finishedTime = SystemClock.elapsedRealtime();
 
@@ -135,25 +151,23 @@ public class GameActivity extends AppCompatActivity {
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                String[] fields = {"nickname","time"};
+                String[] fields = {"nickname", "time"};
                 String[] values = new String[2];
                 values[0] = input.getText().toString();
                 values[1] = finishedTime - chronometer.getBase() + "";
 
-                insertPlayer(fields,values);
+                InsertPlayer ip = new InsertPlayer(fields, values);
+                ip.execute();
 
             }
         });
         alert.show();
     }
 
-    public void insertPlayer(String[] fields, String[] values){
-        InsertPlayer ip = new InsertPlayer(fields,values);
-        ip.execute();
-    }
-
-
-    public void insertPersonalRecord(){
+    /**
+     * Executed when player wins
+     */
+    public void insertPersonalRecord() {
         dbHelper = new DatabaseHelper(this);
         sqLiteDatabase = dbHelper.getReadableDatabase();
         final long finishedTime = SystemClock.elapsedRealtime();
@@ -165,8 +179,6 @@ public class GameActivity extends AppCompatActivity {
         sqLiteDatabase.insert("PersonalRecords", null, contentValues);
 
     }
-
-
 
 
 }

@@ -41,7 +41,6 @@ public class PersonalRecordActivity extends AppCompatActivity {
     }
 
 
-
     public void selectPersonalRecords() {
         String sql = "Select * from PersonalRecords";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
@@ -52,21 +51,25 @@ public class PersonalRecordActivity extends AppCompatActivity {
                 String nickname = cursor.getString(1);
                 long timeSpent = Long.parseLong(cursor.getString(2));
                 String difficulty = cursor.getString(3);
-
-                String time = String.format(Locale.getDefault(),
-                        "%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(timeSpent),
-                        TimeUnit.MILLISECONDS.toSeconds(timeSpent) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeSpent))
-                );
-
-                records.add(new PersonalRecord(nickname, time, difficulty));
+                records.add(new PersonalRecord(nickname, formatTimeSpent(timeSpent), difficulty));
             } while (cursor.moveToNext());
         }
 
         RecycleViewAdapter adapter = new RecycleViewAdapter(records);
         rv.setAdapter(adapter);
 
+    }
+
+
+    public String formatTimeSpent(long timeSpent) {
+        String time = String.format(Locale.getDefault(),
+                "%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(timeSpent),
+                TimeUnit.MILLISECONDS.toSeconds(timeSpent) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeSpent))
+        );
+
+        return time;
     }
 
 
