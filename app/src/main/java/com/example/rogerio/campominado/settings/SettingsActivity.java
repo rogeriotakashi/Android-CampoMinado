@@ -27,27 +27,24 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+        boolean isChecked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.radio_easy:
-                if (checked)
+        if (isChecked)
+            switch (view.getId()) {
+                case R.id.radio_easy:
                     GameSettings.GAME_DIFFICULT = 1;
                     break;
-            case R.id.radio_normal:
-                if (checked)
+                case R.id.radio_normal:
                     GameSettings.GAME_DIFFICULT = 2;
                     break;
-            case R.id.radio_hard:
-                if (checked)
+                case R.id.radio_hard:
                     GameSettings.GAME_DIFFICULT = 3;
                     break;
-            case R.id.radio_insane:
-                if (checked)
+                case R.id.radio_insane:
                     GameSettings.GAME_DIFFICULT = 4;
                     break;
-        }
+            }
     }
 
     @Override

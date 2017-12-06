@@ -48,10 +48,6 @@ public class Cell {
         return neighbourMineCount;
     }
 
-    public void setNeighbourMineCount(int neighbourMineCount) {
-        this.neighbourMineCount = neighbourMineCount;
-    }
-
     public void addNeighbourMineCount() {
         this.neighbourMineCount++;
     }

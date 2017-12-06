@@ -21,21 +21,21 @@ import java.util.List;
 public class MenuAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Menu_Item> albuns;
+    private List<Menu_Item> itens;
 
-    public MenuAdapter(Context context, List<Menu_Item> albuns) {
+    public MenuAdapter(Context context, List<Menu_Item> itens) {
         this.context = context;
-        this.albuns = albuns;
+        this.itens = itens;
     }
 
     @Override
     public int getCount() {
-        return albuns.size();
+        return itens.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return albuns.get(position);
+        return itens.get(position);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class MenuAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Menu_Item menuItem = albuns.get(position);
+        Menu_Item menuItem = itens.get(position);
 
         View linha = LayoutInflater.from(context).inflate(R.layout.menu_line,null);
 

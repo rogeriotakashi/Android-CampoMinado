@@ -28,9 +28,7 @@ public class Menu_Item {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+
 
 
 

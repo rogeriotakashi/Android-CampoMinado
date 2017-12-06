@@ -12,6 +12,7 @@ import com.example.rogerio.campominado.adapters.RecycleViewAdapter;
 import com.example.rogerio.campominado.model.PersonalRecord;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class PersonalRecordActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class PersonalRecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personal_record);
 
         records = new ArrayList<>();
-        rv = (RecyclerView)findViewById(R.id.recycleView);
+        rv = (RecyclerView) findViewById(R.id.recycleView);
 
         //Defining a Layout Manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -39,25 +40,28 @@ public class PersonalRecordActivity extends AppCompatActivity {
         selectPersonalRecords();
     }
 
-    public void selectPersonalRecords(){
-        String sql = "Select * from PersonalRecords";
-        Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
 
-        if(cursor.moveToFirst()){
+
+    public void selectPersonalRecords() {
+        String sql = "Select * from PersonalRecords";
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
             String str = "";
-            do{
+            do {
                 String nickname = cursor.getString(1);
                 long timeSpent = Long.parseLong(cursor.getString(2));
                 String difficulty = cursor.getString(3);
 
-                String time = String.format("%02d:%02d",
+                String time = String.format(Locale.getDefault(),
+                        "%02d:%02d",
                         TimeUnit.MILLISECONDS.toMinutes(timeSpent),
-                        TimeUnit.MILLISECONDS.toSeconds(timeSpent)-
+                        TimeUnit.MILLISECONDS.toSeconds(timeSpent) -
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeSpent))
                 );
 
-                records.add(new PersonalRecord(nickname,time,difficulty));
-            }while(cursor.moveToNext());
+                records.add(new PersonalRecord(nickname, time, difficulty));
+            } while (cursor.moveToNext());
         }
 
         RecycleViewAdapter adapter = new RecycleViewAdapter(records);

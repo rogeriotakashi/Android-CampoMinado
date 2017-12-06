@@ -26,16 +26,17 @@
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".feedback.AfterFeedback"
+            android:name=".feedback.AfterFeedbackActivity"
             android:label="@string/title_activity_after_feedback"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".game.GameActivity" />
-        <activity android:name=".leaderboard.Leaderboard" />
+        <activity android:name=".leaderboard.LeaderboardActivity" />
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".personal.LocalActivity" />
+        <activity android:name=".personal.PersonalRecordActivity"></activity>
     </application>
 
 </manifest>

@@ -17,8 +17,6 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         lista = (ListView)findViewById(R.id.lvLeaderboard);
 
-
-
         SelectPlayer sp = new SelectPlayer(this,lista);
         sp.execute();
     }

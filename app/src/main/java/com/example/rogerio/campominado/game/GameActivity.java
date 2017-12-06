@@ -1,26 +1,24 @@
 package com.example.rogerio.campominado.game;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rogerio.campominado.R;
 import com.example.rogerio.campominado.adapters.GridAdapter;
 import com.example.rogerio.campominado.leaderboard.InsertPlayer;
+import com.example.rogerio.campominado.personal.DatabaseHelper;
 import com.example.rogerio.campominado.settings.GameSettings;
 
 
@@ -33,6 +31,9 @@ public class GameActivity extends AppCompatActivity {
     Button start;
     Button restart;
     Integer[] list;
+    DatabaseHelper dbHelper;
+    SQLiteDatabase sqLiteDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
         start = (Button) findViewById(R.id.btnStart);
         restart = (Button) findViewById(R.id.btnRestart);
         grid = (GridView) findViewById(R.id.grid);
+
         initiate();
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,8 +98,8 @@ public class GameActivity extends AppCompatActivity {
         }
 
         if(status == 1) {
-            displayWinToast();
             chronometer.stop();
+            insertPersonalRecord();
             showAlertDialogOnWin();
         }
     }
@@ -116,15 +118,11 @@ public class GameActivity extends AppCompatActivity {
     public void initiate(){
         adapter = new GridAdapter(this,getDefaultGrid());
         grid.setAdapter(adapter);
-
-        // Restore preferences
-        SharedPreferences settings = getSharedPreferences("Settings", 0);
-        int bombQuantity = settings.getInt("bombQuantity",10);
-
         e = new GameEngine(10,10, GameSettings.getBombQuantityByDifficult(),adapter);
-        Toast.makeText(this,"Bomb Quantity:"+GameSettings.getBombQuantityByDifficult(), Toast.LENGTH_SHORT).show();
         e.setGrid();
     }
+
+
 
     public void showAlertDialogOnWin(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -154,15 +152,21 @@ public class GameActivity extends AppCompatActivity {
         ip.execute();
     }
 
-    public void displayWinToast(){
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast_win,(ViewGroup) findViewById(R.id.customWinToast));
-        Toast toast = new Toast(this);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
+
+    public void insertPersonalRecord(){
+        dbHelper = new DatabaseHelper(this);
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        final long finishedTime = SystemClock.elapsedRealtime();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("nickname", "You");
+        contentValues.put("time", finishedTime - chronometer.getBase() + "");
+        contentValues.put("difficulty", GameSettings.getGameDifficult());
+        sqLiteDatabase.insert("PersonalRecords", null, contentValues);
+
     }
+
+
 
 
 }

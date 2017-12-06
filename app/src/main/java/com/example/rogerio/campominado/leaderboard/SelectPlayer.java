@@ -25,13 +25,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by r176976 on 25/10/17.
  */
 
-public class SelectPlayer extends AsyncTask <Void,Void,String> {
+public class SelectPlayer extends AsyncTask<Void, Void, String> {
 
     private Context context;
     private String[] fields;
@@ -44,7 +45,7 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
 
     public SelectPlayer(Context context, ListView listView) {
         this.context = context;
-        this.listView =listView;
+        this.listView = listView;
         this.fields = fields;
     }
 
@@ -54,12 +55,11 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
 
         try {
             String data =
-                            URLEncoder.encode("database","UTF-8")+"="+
-                            URLEncoder.encode("ra176976","UTF-8")+"&"+
+                    URLEncoder.encode("database", "UTF-8") + "=" +
+                            URLEncoder.encode("ra176976", "UTF-8") + "&" +
 
-                            URLEncoder.encode("table","UTF-8")+"="+
-                            URLEncoder.encode("leaderboard","UTF-8");
-
+                            URLEncoder.encode("table", "UTF-8") + "=" +
+                            URLEncoder.encode("leaderboard", "UTF-8");
 
 
             URL url = new URL(HOST);
@@ -79,7 +79,7 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
             StringBuilder sb = new StringBuilder();
             String line;
 
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -96,22 +96,23 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
     protected void onPostExecute(String result) {
 
         ArrayList<Player_item> players = new ArrayList<>();
-        try{
+        try {
             JSONArray jsonArray = new JSONArray(result);
 
 
-            for(int i = 0; i < jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 long timeSpent = Long.parseLong(jsonObject.getString("time"));
 
-                String time = String.format("%02d:%02d",
+                String time = String.format(Locale.getDefault(),
+                        "%02d:%02d",
                         TimeUnit.MILLISECONDS.toMinutes(timeSpent),
-                        TimeUnit.MILLISECONDS.toSeconds(timeSpent)-
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeSpent))
+                        TimeUnit.MILLISECONDS.toSeconds(timeSpent) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeSpent))
                 );
 
 
-                Player_item player = new Player_item(jsonObject.getString("nickname"),time);
+                Player_item player = new Player_item(jsonObject.getString("nickname"), time);
                 players.add(player);
 
 
@@ -129,15 +130,12 @@ public class SelectPlayer extends AsyncTask <Void,Void,String> {
 
 
             // Filter top players
-            if(players.size() > TOP)
-                topPlayers = new ArrayList<>(players.subList(0,TOP));
+            if (players.size() > TOP)
+                topPlayers = new ArrayList<>(players.subList(0, TOP));
 
 
-            LeaderboardAdapter adapter = new LeaderboardAdapter(context,topPlayers);
+            LeaderboardAdapter adapter = new LeaderboardAdapter(context, topPlayers);
             listView.setAdapter(adapter);
-
-
-
 
 
         } catch (JSONException e) {
