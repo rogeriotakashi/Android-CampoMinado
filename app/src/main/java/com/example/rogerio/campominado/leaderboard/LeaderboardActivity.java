@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 import com.example.rogerio.campominado.R;
 
-public class Leaderboard extends AppCompatActivity {
+public class LeaderboardActivity extends AppCompatActivity {
 
     ListView lista;
 

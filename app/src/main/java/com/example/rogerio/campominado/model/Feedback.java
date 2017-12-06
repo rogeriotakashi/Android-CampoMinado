@@ -1,4 +1,4 @@
-package com.example.rogerio.campominado.feedback;
+package com.example.rogerio.campominado.model;
 
 /**
  * Created by ROGERIO on 07/11/2017.
