@@ -1,6 +1,12 @@
 # Android-CampoMinado
 
-Simple Minesweeper game developed using Android Studio
+Simple Minesweeper game developed using Android Studio.
+Concepts seen in the projects are:
+GridView for Game grid activity;
+AsyncTask to insert and select data for Leaderboard activity;
+CardView for Personal Records activity;
+Firebase Database for storing feedback;
+...
 
 # Screenshots
 Main Menu:  
